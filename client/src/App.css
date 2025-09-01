@@ -1,6 +1,6 @@
 * {
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -52,11 +52,41 @@ main .left .review {
   cursor: pointer;
   user-select: none;
   border-radius: 0.7rem;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+main .left .review:hover {
+  background-color: rgb(190, 190, 250);
 }
 
 main .right {
   background-color: #343434;
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  overflow: auto;
+  padding: 1.5rem 3rem; /* Increased padding for better readability */
+  font-size: 1.2rem;
+  line-height: 1.6;
+  overflow-y: auto;
+  color: #ffffff;
+  border-radius: 0.7rem;
+}
+
+/* ✅ Fix bullet points alignment */
+main .right ul,
+main .right ol {
+  padding-left: 2rem; /* Ensures bullets are visible */
+  margin-left: 1rem;
+}
+
+main .right li {
+  margin-bottom: 0.5rem; /* Space between list items */
+}
+
+/* ✅ Optional: Style for headings inside Markdown */
+main .right h1,
+main .right h2,
+main .right h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #f1f1f1;
 }

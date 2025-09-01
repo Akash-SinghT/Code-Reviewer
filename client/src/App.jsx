@@ -6,7 +6,7 @@ import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import axios from "axios";
-import { toast } from "react-toastify"; // ✅ for feedback
+import { toast } from "react-toastify";
 import "./App.css";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
   return 1 + 1
 }`);
   const [review, setReview] = useState("");
-  const [loading, setLoading] = useState(false); // ✅ loading state
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     prism.highlightAll();
@@ -26,10 +26,10 @@ function App() {
       return;
     }
 
-    setLoading(true); // ✅ start loading
+    setLoading(true);
     try {
       const response = await axios.post(
-        `${"https://code-reviewer-mauve.vercel.app"}/ai/get-review`,
+        `${"http://localhost:3000"}/ai/get-review`,
         { code },
         {
           headers: { "Content-Type": "application/json" },
@@ -52,9 +52,13 @@ function App() {
   }
 
   return (
-    <main>
-      <div className="left">
-        <div className="code">
+    <main style={{ display: "flex", height: "100vh" }}>
+      {/* Left Side - Code Editor */}
+      <div className="left" style={{ flex: 1, padding: "10px" }}>
+        <h3 style={{ color: "#fff", marginBottom: "10px" }}>
+          Write Your Code Here:
+        </h3>
+        <div className="code" style={{ height: "80%" }}>
           <Editor
             value={code}
             onValueChange={(code) => setCode(code)}
@@ -69,15 +73,59 @@ function App() {
               borderRadius: "5px",
               height: "100%",
               width: "100%",
+              backgroundColor: "#1e1e1e",
+              color: "#fff",
             }}
+            placeholder="Write your code here..."
           />
         </div>
-        <button onClick={reviewCode} className="review" disabled={loading}>
+        <button
+          onClick={reviewCode}
+          className="review"
+          disabled={loading}
+          style={{
+            marginTop: "15px",
+            padding: "10px 20px",
+            backgroundColor: "#4f46e5",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
           {loading ? "Reviewing..." : "Review"}
         </button>
       </div>
-      <div className="right">
-        <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
+
+      {/* Right Side - Review */}
+      <div
+        className="right"
+        style={{
+          flex: 1,
+          backgroundColor: "#2d2d2d",
+          padding: "20px",
+          borderRadius: "8px",
+          color: "#fff",
+        }}
+      >
+        <h3 style={{ marginBottom: "10px" }}>Code Review:</h3>
+        <div
+          style={{
+            backgroundColor: "#1e1e1e",
+            padding: "15px",
+            borderRadius: "5px",
+            minHeight: "80%",
+            overflowY: "auto",
+          }}
+        >
+          {review ? (
+            <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
+          ) : (
+            <p style={{ color: "#aaa" }}>
+              Your code review will appear here...
+            </p>
+          )}
+        </div>
       </div>
     </main>
   );
