@@ -29,7 +29,7 @@ function App() {
     setLoading(true); // ✅ start loading
     try {
       const response = await axios.post(
-        `${"http://localhost:3000"}/ai/get-review`,
+        `${"https://code-reviewer-mauve.vercel.app"}/ai/get-review`,
         { code },
         {
           headers: { "Content-Type": "application/json" },
