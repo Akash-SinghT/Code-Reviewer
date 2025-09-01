@@ -52,13 +52,11 @@ function App() {
   }
 
   return (
-    <main style={{ display: "flex", height: "100vh" }}>
+    <main>
       {/* Left Side - Code Editor */}
-      <div className="left" style={{ flex: 1, padding: "10px" }}>
-        <h3 style={{ color: "#fff", marginBottom: "10px" }}>
-          Write Your Code Here:
-        </h3>
-        <div className="code" style={{ height: "80%" }}>
+      <div className="left">
+        <h3>Write Your Code Here:</h3>
+        <div className="code-container">
           <Editor
             value={code}
             onValueChange={(code) => setCode(code)}
@@ -66,64 +64,23 @@ function App() {
               prism.highlight(code, prism.languages.javascript, "javascript")
             }
             padding={10}
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 16,
-              border: "1px solid #ddd",
-              borderRadius: "5px",
-              height: "100%",
-              width: "100%",
-              backgroundColor: "#1e1e1e",
-              color: "#fff",
-            }}
+            className="code-editor"
             placeholder="Write your code here..."
           />
         </div>
-        <button
-          onClick={reviewCode}
-          className="review"
-          disabled={loading}
-          style={{
-            marginTop: "15px",
-            padding: "10px 20px",
-            backgroundColor: "#4f46e5",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={reviewCode} className="review-btn" disabled={loading}>
           {loading ? "Reviewing..." : "Review"}
         </button>
       </div>
 
       {/* Right Side - Review */}
-      <div
-        className="right"
-        style={{
-          flex: 1,
-          backgroundColor: "#2d2d2d",
-          padding: "20px",
-          borderRadius: "8px",
-          color: "#fff",
-        }}
-      >
-        <h3 style={{ marginBottom: "10px" }}>Code Review:</h3>
-        <div
-          style={{
-            backgroundColor: "#1e1e1e",
-            padding: "15px",
-            borderRadius: "5px",
-            minHeight: "80%",
-            overflowY: "auto",
-          }}
-        >
+      <div className="right">
+        <h3>Code Review:</h3>
+        <div className="review-content">
           {review ? (
             <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
           ) : (
-            <p style={{ color: "#aaa" }}>
-              Your code review will appear here...
-            </p>
+            <p>Your code review will appear here...</p>
           )}
         </div>
       </div>

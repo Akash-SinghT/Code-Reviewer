@@ -29,11 +29,30 @@ main .right {
 main .left {
   background-color: #000000;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
-.left .code,
-.code pre,
-.code pre code {
+.code-container {
+  height: 80%;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.code-editor {
+  font-family: '"Fira code", "Fira Mono", monospace';
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.code-container pre,
+.code-container pre code {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -41,10 +60,7 @@ main .left {
   background-color: #0c0c0c;
 }
 
-main .left .review {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+.review-btn {
   background-color: rgb(219, 219, 255);
   color: #000000;
   padding: 0.5rem 2rem;
@@ -54,15 +70,21 @@ main .left .review {
   border-radius: 0.7rem;
   border: none;
   transition: background 0.3s ease;
+  align-self: flex-end;
 }
 
-main .left .review:hover {
+.review-btn:hover {
   background-color: rgb(190, 190, 250);
+}
+
+.review-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 main .right {
   background-color: #343434;
-  padding: 1.5rem 3rem; /* Increased padding for better readability */
+  padding: 1.5rem 1rem;
   font-size: 1.2rem;
   line-height: 1.6;
   overflow-y: auto;
@@ -70,18 +92,26 @@ main .right {
   border-radius: 0.7rem;
 }
 
-/* ✅ Fix bullet points alignment */
+.review-content {
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 80%;
+  overflow-y: auto;
+}
+
+/* Fix bullet points alignment */
 main .right ul,
 main .right ol {
-  padding-left: 2rem; /* Ensures bullets are visible */
+  padding-left: 2rem;
   margin-left: 1rem;
 }
 
 main .right li {
-  margin-bottom: 0.5rem; /* Space between list items */
+  margin-bottom: 0.5rem;
 }
 
-/* ✅ Optional: Style for headings inside Markdown */
+/* Style for headings inside Markdown */
 main .right h1,
 main .right h2,
 main .right h3 {
@@ -89,4 +119,66 @@ main .right h3 {
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: #f1f1f1;
+}
+main .left h3 {
+  margin-bottom: 10px;
+}
+
+.review-content p {
+  color: #aaa;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  main {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  main .right {
+    padding: 1rem 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  main .left,
+  main .right {
+    flex-basis: auto;
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  main .right {
+    padding: 1rem 1.5rem;
+  }
+
+  .review-btn {
+    align-self: center;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  main .right {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+
+  .review-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 }
